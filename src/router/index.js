@@ -10,10 +10,6 @@ const routes = [
     component: Menu,
   },
   {
-    path: "/idea",
-    component: () => import("../views/Idea.vue"),
-  },
-  {
     path: "/indicadores",
     component: () => import("../views/Indicators.vue"),
   },

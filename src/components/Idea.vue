@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-card style="margin: 2.5rem">
       <v-card-title> Registro de Idea de Mejora </v-card-title>
       <div style="margin: 0 1.5rem">
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -138,7 +137,6 @@
           </v-container>
         </v-form>
       </div>
-    </v-card>
   </div>
 </template>
 

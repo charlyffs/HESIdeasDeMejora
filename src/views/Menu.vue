@@ -16,9 +16,22 @@
               <v-btn block color="info" to="/">INICIO</v-btn>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-btn block color="info" to="/idea">
-                INGRESAR IDEA DE MEJORA
-              </v-btn>
+              <v-menu
+                v-model="menu"
+                :close-on-content-click="false"
+                :nudge-width="2000"
+                absolute
+                rounded
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn block color="info" dark v-bind="attrs" v-on="on">
+                    INGRESAR IDEA DE MEJORA
+                  </v-btn>
+                </template>
+                <v-card>
+                  <Idea />
+                </v-card>
+              </v-menu>
             </v-col>
           </v-row>
           <v-row>
@@ -57,9 +70,12 @@
 </template>
 
 <script>
+import Idea from "@/components/Idea.vue";
 export default {
   name: "Menu",
-  components: {},
+  components: {
+    Idea,
+  },
 };
 </script>
 
