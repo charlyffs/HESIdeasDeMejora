@@ -16,22 +16,7 @@
               <v-btn block color="info" to="/">INICIO</v-btn>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-menu
-                v-model="menu"
-                :close-on-content-click="false"
-                :nudge-width="2000"
-                absolute
-                rounded
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn block color="info" dark v-bind="attrs" v-on="on">
-                    INGRESAR IDEA DE MEJORA
-                  </v-btn>
-                </template>
-                <v-card>
-                  <Idea />
-                </v-card>
-              </v-menu>
+              <Idea />
             </v-col>
           </v-row>
           <v-row>
