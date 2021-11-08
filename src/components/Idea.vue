@@ -1,11 +1,5 @@
 <template>
-  <v-menu
-    v-model="menu"
-    :close-on-content-click="false"
-    :nudge-width="2000"
-    :max-height="height"
-    top
-  >
+  <v-dialog v-model="dialog">
     <template v-slot:activator="{ on, attrs }">
       <v-btn block color="info" dark v-bind="attrs" v-on="on">
         INGRESAR IDEA DE MEJORA
@@ -14,7 +8,7 @@
     <v-card style="padding: 20px">
       <v-card-title> Registro de Idea de Mejora </v-card-title>
       <div style="margin: 0 1.5rem">
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form ref="form" v-model="valid">
           <v-container>
             <!-- Propositor -->
             <v-row>
@@ -150,7 +144,7 @@
         </v-form>
       </div>
     </v-card>
-  </v-menu>
+  </v-dialog>
 </template>
 
 <script>
