@@ -6,9 +6,7 @@
       style="margin: 2rem"
       :headers="headers"
       :items="items"
-      hide-actions
       class="elevation-1"
-      select-all
       pagination.sync="pagination"
       item-key="id"
       loading="true"
@@ -18,6 +16,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -48,6 +47,10 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    console.log(axios);
+    // axios.get("url").then((res) => (this.items = res));
   },
 };
 </script>
