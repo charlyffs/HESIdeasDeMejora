@@ -124,7 +124,7 @@
             </v-row>
             <v-row justify="center">
               <v-col cols="auto">
-                <v-btn color="error" @click="dialog = false">CANCELAR</v-btn>
+                <v-btn color="error" @click="cancel()">CANCELAR</v-btn>
               </v-col>
               <v-col cols="auto">
                 <v-btn
@@ -190,6 +190,26 @@ export default {
         imgAntes: "string", //url a cdn de imágenes
       };
       axios.post("url", data);
+      alert("Idea registrada exitosamente.");
+      this.clearForm();
+      this.dialog = false;
+    },
+    cancel() {
+      this.clearForm();
+      this.dialog = false;
+    },
+    clearForm() {
+      this.emisor = "";
+      this.depto = "";
+      this.areaPropone = "";
+      this.supervisorPropone = "";
+      this.gerentePropone = "";
+      this.areaOportunidad = "";
+      this.supervisorArea = "";
+      this.gerenteArea = "";
+      this.titulo = "";
+      this.oportunidad = "";
+      this.propuesta = "";
     },
   },
 
