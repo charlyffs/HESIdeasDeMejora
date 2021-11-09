@@ -124,18 +124,14 @@
             </v-row>
             <v-row justify="center">
               <v-col cols="auto">
-                <v-btn color="error" @click="menu = false">CANCELAR</v-btn>
+                <v-btn color="error" @click="dialog = false">CANCELAR</v-btn>
               </v-col>
               <v-col cols="auto">
                 <v-btn
                   color="success"
                   :loading="loading"
-                  :disabled="loading | !valid"
-                  @click="
-                    validate();
-                    //figure out a way to make this not work on first click
-                    if (valid) loader = 'loading';
-                  "
+                  :disabled="loading"
+                  @click="check()"
                   >GUARDAR</v-btn
                 >
               </v-col>
@@ -148,6 +144,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -168,15 +165,31 @@ export default {
       oportunidad: "",
       propuesta: "",
 
-      menu: true,
-
-      height: document.documentElement.clientHeight - 50,
+      dialog: false,
     };
   },
 
   methods: {
+    check() {
+      this.validate();
+      if (this.valid) {
+        this.loader = "loading";
+        this.send();
+      }
+    },
     validate() {
       this.$refs.form.validate();
+    },
+    send() {
+      var data = {
+        idEmpleado: this.emisor,
+        titulo: this.titulo,
+        areaOportunidad: this.areaOportunidad,
+        oportunidad: this.oportunidad,
+        propuesta: this.propuesta,
+        imgAntes: "string", //url a cdn de imágenes
+      };
+      axios.post("url", data);
     },
   },
 
