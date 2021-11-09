@@ -39,15 +39,6 @@
               >
             </v-col>
           </v-row>
-          <v-row no-gutters>
-            <v-col>
-              <v-text-field
-                filled
-                label="Buscar"
-                v-model="value"
-              ></v-text-field>
-            </v-col>
-          </v-row>
         </v-container>
       </v-col>
     </v-row>
