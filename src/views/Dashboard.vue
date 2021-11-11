@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -49,8 +48,13 @@ export default {
     };
   },
   mounted() {
-    console.log(axios);
-    // axios.get("url").then((res) => (this.items = res));
+    fetch("DATA", {
+      method: "GET",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json;",
+      },
+    }).then((response) => (this.items = response));
   },
 };
 </script>

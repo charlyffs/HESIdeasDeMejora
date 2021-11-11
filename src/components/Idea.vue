@@ -144,7 +144,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -189,8 +188,17 @@ export default {
         propuesta: this.propuesta,
         imgAntes: "string", //url a cdn de imágenes
       };
-      axios.post("url", data);
-      alert("Idea registrada exitosamente.");
+      fetch("https://localhost:5001/api/data/addMejora2", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(data),
+        headers: {
+        "Content-Type": "application/json;",
+      },
+      }).then(() => {
+        alert("Idea registrada exitosamente.");
+      });
+
       this.clearForm();
       this.dialog = false;
     },
