@@ -3,15 +3,15 @@
     <v-container>
       <v-row justify="center">
         <v-col cols="12" sm="8">
-          <VerticalBarChart v-bind:inputData="unnamedChartData" />
+          <VerticalBarChart v-bind:inputData="verticalBarData" />
         </v-col>
         <v-col cols="12" sm="4"
-          ><PieChart v-bind:inputData="globalGoalProgress"
+          ><PieChart v-bind:inputData="pieChartData"
         /></v-col>
       </v-row>
       <v-row justify="center">
         <v-col
-          ><HorizontalBarChart v-bind:inputData="employeeGoalProgress"
+          ><HorizontalBarChart v-bind:inputData="horizontalBarData"
         /></v-col>
       </v-row>
     </v-container>
@@ -32,16 +32,16 @@ export default {
   },
   data() {
     return {
-      unnamedChartData: [
+      verticalBarData: [
         //mes y total de ideas
         ["ENE", 2],
         ["ENE", 2],
       ],
-      globalGoalProgress: [
+      pieChartData: [
         ["Propuestas", 25],
         ["Por proponer", 25],
       ],
-      employeeGoalProgress: [
+      horizontalBarData: [
         //Nombre de empleado y num de ideas
         ["JOHN DOE", 10],
         ["JOHN DOE", 10],
@@ -49,30 +49,43 @@ export default {
     };
   },
   mounted() {
-    fetch("DATA", {
+    fetch("http://charlyffs.mywire.org:8001/indicatorsHori", {
       method: "GET",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
       },
-    }).then((response) => (this.unnamedChartData = response));
-    fetch("DATA", {
+    })
+      .then((response) => response.json())
+      .then((data) => (this.horizontalBarData = data));
+
+    fetch("http://charlyffs.mywire.org:8001/indicatorsVer", {
       method: "GET",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
       },
-    }).then((response) => (this.globalGoalProgress = response));
-    fetch("DATA", {
+    })
+      .then((response) => response.json())
+      .then((data) => (this.verticalBarData = data));
+
+    fetch("http://charlyffs.mywire.org:8001/indicatorsPie", {
       method: "GET",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
       },
-    }).then((response) => (this.employeeGoalProgress = response));
-    this.unnamedChartData.unshift(["Mes", "Ideas"]);
-    this.globalGoalProgress.unshift(["Task", "Hours per Day"]);
-    this.employeeGoalProgress.unshift(["Nombre", "Avance"]);
+    })
+      .then((response) => response.json())
+      .then((data) => (this.pieChartData = data));
+
+    this.verticalBarData.unshift(["Mes", "Ideas"]);
+    this.pieChartData.unshift(["Tipo", "Progreso"]);
+    this.horizontalBarData.unshift(["Nombre", "Avance"]);
+
+    console.log(this.verticalBarData);
+    console.log(this.pieChartData);
+    console.log(this.horizontalBarData);
   },
 };
 </script>

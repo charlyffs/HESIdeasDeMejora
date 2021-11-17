@@ -31,7 +31,6 @@
 
 <script>
 import ProjectCard from "@/components/ProjectCard.vue";
-import axios from "axios";
 export default {
   components: { ProjectCard },
   data() {
@@ -70,11 +69,15 @@ export default {
     };
   },
   mounted() {
-    console.log(axios);
-    axios.get("url").then((res) => (this.firstPlace = res));
-    axios.get("url").then((res) => (this.secondPlace = res));
-    axios.get("url").then((res) => (this.thirdPlace = res));
-    axios.get("url").then((res) => (this.tableData = res));
+    fetch("http://charlyffs.mywire.org:8001/awards", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => (this.tableData = data[0]));
   },
 };
 </script>
