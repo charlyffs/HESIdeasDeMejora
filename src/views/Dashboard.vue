@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div style="height: 2rem"></div>
-    <h4 style="text-align: center">MEJORES IDEAS DEL MES</h4>
     <v-data-table
       style="margin: 2rem"
       :headers="headers"
@@ -48,13 +46,16 @@ export default {
     };
   },
   mounted() {
-    fetch("DATA", {
+    fetch("http://charlyffs.mywire.org:8001/dashboard", {
       method: "GET",
-      mode: "no-cors",
+
       headers: {
         "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
       },
-    }).then((response) => (this.items = response));
+    })
+      .then((response) => response.json())
+      .then((data) => console.log("data: ", data));
   },
 };
 </script>

@@ -10,7 +10,6 @@
       <div style="margin: 0 1.5rem">
         <v-form ref="form" v-model="valid">
           <v-container>
-            <!-- Propositor -->
             <v-row>
               <v-col cols="12" sm="6" md="4"
                 ><v-text-field v-model="emisor" label="Emisor"></v-text-field
