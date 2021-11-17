@@ -48,13 +48,17 @@ export default {
     };
   },
   mounted() {
-    fetch("DATA", {
+    fetch("http://charlyffs.mywire.org:8001/dashboard", {
       method: "GET",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json;",
-      },
-    }).then((response) => (this.items = response));
+        "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.items = data
+      });
   },
 };
 </script>
