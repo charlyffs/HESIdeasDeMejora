@@ -51,10 +51,12 @@ export default {
       headers: {
         "Content-Type": "application/json;",
         "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => (this.items = data));
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.items = data
+      });
   },
 };
 </script>
