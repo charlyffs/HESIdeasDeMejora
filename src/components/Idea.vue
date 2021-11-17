@@ -160,6 +160,7 @@ export default {
       this.$refs.form.validate();
     },
     send() {
+
       var data = {
         idEmpleado: this.emisor,
         titulo: this.titulo,
@@ -168,16 +169,27 @@ export default {
         propuesta: this.propuesta,
         imgAntes: "string", //url a cdn de imágenes
       };
-      fetch("https://localhost:5001/api/data/addMejora2", {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json;",
+
+      fetch("http://charlyffs.mywire.org:8001/dashboard/", {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-Type": "application/json;",
+        "Access-Control-Allow-Origin": "*",
         },
-      }).then(() => {
-        alert("Idea registrada exitosamente.");
-      });
+      })
+        .then((response) => response.json())
+        .then((data) => console.log("data: ", data));
+      // fetch("http://charlyffs.mywire.org:8001/dashboard", {
+      // method: "GET",
+
+      // headers: {
+      //   "Content-Type": "application/json;",
+      //   "Access-Control-Allow-Origin": "*",
+      //   },
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => console.log("data: ", data));
 
       this.clearForm();
       this.dialog = false;

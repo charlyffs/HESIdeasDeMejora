@@ -69,7 +69,7 @@ export default {
     };
   },
   mounted() {
-    fetch("http://charlyffs.mywire.org:8001/awards", {
+    fetch("http://charlyffs.mywire.org:8001/awardsTopThree", {
       method: "GET",
       headers: {
         "Content-Type": "application/json;",
@@ -77,7 +77,11 @@ export default {
       },
     })
       .then((response) => response.json())
-      .then((data) => (this.tableData = data[0]));
+      .then((data) => {
+        this.firstPlace = data[0];
+        this.secondPlace = data[1];
+        this.thirdPlace = data[2];
+      });
   },
 };
 </script>
