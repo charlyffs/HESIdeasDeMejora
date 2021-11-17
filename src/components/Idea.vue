@@ -193,8 +193,8 @@ export default {
         mode: "no-cors",
         body: JSON.stringify(data),
         headers: {
-        "Content-Type": "application/json;",
-      },
+          "Content-Type": "application/json;",
+        },
       }).then(() => {
         alert("Idea registrada exitosamente.");
       });

@@ -4,7 +4,13 @@
       <v-row justify="center">
         <v-col cols="auto">
           <v-icon
-            :color="items.place == 1 ? '#ffd700' : items.place == 2 ? '#c0c0c0' : '#cd7f32'"
+            :color="
+              items.place == 1
+                ? '#ffd700'
+                : items.place == 2
+                ? '#c0c0c0'
+                : '#cd7f32'
+            "
             >mdi-trophy</v-icon
           >
         </v-col>

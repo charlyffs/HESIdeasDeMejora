@@ -24,7 +24,6 @@ export default {
     return {
       chartsLib: null,
       // Array will be automatically processed with visualization.arrayToDataTable function
-      
     };
   },
   computed: {
