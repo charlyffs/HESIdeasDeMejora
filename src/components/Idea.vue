@@ -13,27 +13,18 @@
             <!-- Propositor -->
             <v-row>
               <v-col cols="12" sm="6" md="4"
-                ><v-text-field
-                  v-model="emisor"
-                  label="Emisor"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
-                ></v-text-field
+                ><v-text-field v-model="emisor" label="Emisor"></v-text-field
               ></v-col>
               <v-col cols="12" sm="6" md="4"
                 ><v-text-field
                   v-model="depto"
                   label="Departamento"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
                 ></v-text-field
               ></v-col>
               <v-col cols="12" md="4"
                 ><v-text-field
                   v-model="areaPropone"
                   label="Área de quien propone"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
                 ></v-text-field
               ></v-col>
             </v-row>
@@ -42,16 +33,12 @@
                 ><v-text-field
                   v-model="supervisorPropone"
                   label="Supervisor de quien propone"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
                 ></v-text-field
               ></v-col>
               <v-col cols="12" md="6"
                 ><v-text-field
                   v-model="gerentePropone"
                   label="Gerente de quien propone"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
                 ></v-text-field
               ></v-col>
             </v-row>
@@ -60,8 +47,6 @@
                 ><v-text-field
                   v-model="areaOportunidad"
                   label="Área de oportunidad de mejora"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
                 ></v-text-field
               ></v-col>
             </v-row>
@@ -70,16 +55,12 @@
                 ><v-text-field
                   v-model="supervisorArea"
                   label="Supervisor del área de mejora"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
                 ></v-text-field
               ></v-col>
               <v-col cols="12" md="6"
                 ><v-text-field
                   v-model="gerenteArea"
                   label="Gerente del Área de mejora"
-                  :rules="[(v) => !!v || 'Campo requerido.']"
-                  required
                 ></v-text-field
               ></v-col>
             </v-row>
