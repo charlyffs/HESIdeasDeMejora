@@ -1,5 +1,5 @@
 # HESIdeasDeMejora
-test
+
 ## Project setup
 ```
 npm install
