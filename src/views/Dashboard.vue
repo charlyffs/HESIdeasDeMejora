@@ -48,14 +48,13 @@ export default {
   mounted() {
     fetch("http://charlyffs.mywire.org:8001/dashboard", {
       method: "GET",
-
       headers: {
         "Content-Type": "application/json;",
         "Access-Control-Allow-Origin": "*",
       },
     })
       .then((response) => response.json())
-      .then((data) => console.log("data: ", data));
+      .then((data) => (this.items = data));
   },
 };
 </script>
