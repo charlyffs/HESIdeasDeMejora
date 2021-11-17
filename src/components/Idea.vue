@@ -1,9 +1,14 @@
 <template>
-  <div>
-    <v-card style="margin: 2.5rem">
+  <v-dialog v-model="dialog">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn block color="info" dark v-bind="attrs" v-on="on">
+        INGRESAR IDEA DE MEJORA
+      </v-btn>
+    </template>
+    <v-card style="padding: 20px">
       <v-card-title> Registro de Idea de Mejora </v-card-title>
       <div style="margin: 0 1.5rem">
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form ref="form" v-model="valid">
           <v-container>
             <!-- Propositor -->
             <v-row>
@@ -119,18 +124,14 @@
             </v-row>
             <v-row justify="center">
               <v-col cols="auto">
-                <v-btn color="error" to="/">CANCELAR</v-btn>
+                <v-btn color="error" @click="cancel()">CANCELAR</v-btn>
               </v-col>
               <v-col cols="auto">
                 <v-btn
                   color="success"
                   :loading="loading"
-                  :disabled="loading | !valid"
-                  @click="
-                    validate();
-                    //figure out a way to make this not work on first click
-                    if (valid) loader = 'loading';
-                  "
+                  :disabled="loading"
+                  @click="check()"
                   >GUARDAR</v-btn
                 >
               </v-col>
@@ -139,7 +140,7 @@
         </v-form>
       </div>
     </v-card>
-  </div>
+  </v-dialog>
 </template>
 
 <script>
@@ -162,12 +163,61 @@ export default {
       titulo: "",
       oportunidad: "",
       propuesta: "",
+
+      dialog: false,
     };
   },
 
   methods: {
+    check() {
+      this.validate();
+      if (this.valid) {
+        this.loader = "loading";
+        this.send();
+      }
+    },
     validate() {
       this.$refs.form.validate();
+    },
+    send() {
+      var data = {
+        idEmpleado: this.emisor,
+        titulo: this.titulo,
+        areaOportunidad: this.areaOportunidad,
+        oportunidad: this.oportunidad,
+        propuesta: this.propuesta,
+        imgAntes: "string", //url a cdn de imágenes
+      };
+      fetch("https://localhost:5001/api/data/addMejora2", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(data),
+        headers: {
+        "Content-Type": "application/json;",
+      },
+      }).then(() => {
+        alert("Idea registrada exitosamente.");
+      });
+
+      this.clearForm();
+      this.dialog = false;
+    },
+    cancel() {
+      this.clearForm();
+      this.dialog = false;
+    },
+    clearForm() {
+      this.emisor = "";
+      this.depto = "";
+      this.areaPropone = "";
+      this.supervisorPropone = "";
+      this.gerentePropone = "";
+      this.areaOportunidad = "";
+      this.supervisorArea = "";
+      this.gerenteArea = "";
+      this.titulo = "";
+      this.oportunidad = "";
+      this.propuesta = "";
     },
   },
 

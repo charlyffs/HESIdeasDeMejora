@@ -20,9 +20,7 @@
       style="margin: 0 2rem"
       :headers="tableHeaders"
       :items="tableData"
-      hide-actions
       class="elevation-1"
-      select-all
       pagination.sync="pagination"
       item-key="id"
       loading="true"
@@ -33,6 +31,7 @@
 
 <script>
 import ProjectCard from "@/components/ProjectCard.vue";
+import axios from "axios";
 export default {
   components: { ProjectCard },
   data() {
@@ -69,6 +68,13 @@ export default {
         description: "description",
       },
     };
+  },
+  mounted() {
+    console.log(axios);
+    axios.get("url").then((res) => (this.firstPlace = res));
+    axios.get("url").then((res) => (this.secondPlace = res));
+    axios.get("url").then((res) => (this.thirdPlace = res));
+    axios.get("url").then((res) => (this.tableData = res));
   },
 };
 </script>

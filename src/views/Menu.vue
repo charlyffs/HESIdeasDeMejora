@@ -16,9 +16,7 @@
               <v-btn block color="info" to="/">INICIO</v-btn>
             </v-col>
             <v-col cols="12" sm="8">
-              <v-btn block color="info" to="/idea">
-                INGRESAR IDEA DE MEJORA
-              </v-btn>
+              <Idea />
             </v-col>
           </v-row>
           <v-row>
@@ -41,15 +39,6 @@
               >
             </v-col>
           </v-row>
-          <v-row no-gutters>
-            <v-col>
-              <v-text-field
-                filled
-                label="Buscar"
-                v-model="value"
-              ></v-text-field>
-            </v-col>
-          </v-row>
         </v-container>
       </v-col>
     </v-row>
@@ -57,9 +46,12 @@
 </template>
 
 <script>
+import Idea from "@/components/Idea.vue";
 export default {
   name: "Menu",
-  components: {},
+  components: {
+    Idea,
+  },
 };
 </script>
 

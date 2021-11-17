@@ -6,9 +6,7 @@
       style="margin: 2rem"
       :headers="headers"
       :items="items"
-      hide-actions
       class="elevation-1"
-      select-all
       pagination.sync="pagination"
       item-key="id"
       loading="true"
@@ -48,6 +46,15 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    fetch("DATA", {
+      method: "GET",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json;",
+      },
+    }).then((response) => (this.items = response));
   },
 };
 </script>
