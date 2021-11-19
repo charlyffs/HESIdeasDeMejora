@@ -31,6 +31,8 @@
 
 <script>
 import ProjectCard from "@/components/ProjectCard.vue";
+import axios from "axios";
+import { headers } from "../config/headers.ts";
 export default {
   components: { ProjectCard },
   data() {
@@ -68,20 +70,36 @@ export default {
       },
     };
   },
-  mounted() {
-    fetch("http://charlyffs.mywire.org:8001/awardsTopThree", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.firstPlace = data[0];
-        this.secondPlace = data[1];
-        this.thirdPlace = data[2];
-      });
+  async mounted() {
+    let response = await axios.get(
+      "https://localhost:5001/api/data/awardsTopThree",
+      {
+        method: "GET",
+        headers: headers,
+        dataType: "json",
+      }
+    );
+
+    console.log("Server response: ", response.data);
+
+    let data = await response.json();
+
+    this.firstPlace = data[0];
+    this.secondPlace = data[1];
+    this.thirdPlace = data[2];
+    this.firstPlace.place = 1;
+    this.secondPlace.place = 2;
+    this.thirdPlace.place = 3;
+
+    response = await axios.get("https://localhost:5001/api/data/awardsTable", {
+      method: "POST",
+      headers: headers,
+      dataType: "json",
+    });
+
+    data = await response.json();
+
+    this.tableData = data;
   },
 };
 </script>

@@ -14,9 +14,8 @@
 </template>
 
 <script>
-import axios from "axios"
-import { headers } from "../config/headers.ts"
-
+import axios from "axios";
+import { headers } from "../config/headers.ts";
 export default {
   data() {
     return {
