@@ -22,6 +22,8 @@
 import HorizontalBarChart from "@/components/HorizontalBarChart.vue";
 import VerticalBarChart from "@/components/VerticalBarChart.vue";
 import PieChart from "@/components/PieChart.vue";
+import axios from "axios";
+import { headers } from "../config/headers.ts";
 
 export default {
   name: "Indicators",
@@ -48,44 +50,49 @@ export default {
       ],
     };
   },
-  mounted() {
-    fetch("http://charlyffs.mywire.org:8001/indicatorsHori", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => (this.horizontalBarData = data));
+  async mounted() {
+    let response = await axios.get(
+      "https://localhost:5001/api/data/indicators",
+      {
+        method: "POST",
+        headers: headers,
+        dataType: "json",
+      }
+    );
 
-    fetch("http://charlyffs.mywire.org:8001/indicatorsVer", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => (this.verticalBarData = data));
+    console.log("Server response: ", response.data);
 
-    fetch("http://charlyffs.mywire.org:8001/indicatorsPie", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => (this.pieChartData = data));
+    let data = await response.json();
+
+    this.horizontalBarData = data;
+
+    response = await axios.get("https://localhost:5001/api/data/indicators", {
+      method: "POST",
+      headers: headers,
+      dataType: "json",
+    });
+
+    console.log("Server response: ", response.data);
+
+    data = await response.json();
+
+    this.verticalBarData = data;
+
+    response = await axios.get("https://localhost:5001/api/data/indicators", {
+      method: "POST",
+      headers: headers,
+      dataType: "json",
+    });
+
+    console.log("Server response: ", response.data);
+
+    data = await response.json();
+
+    this.pieChartData = data;
 
     this.verticalBarData.unshift(["Mes", "Ideas"]);
     this.pieChartData.unshift(["Tipo", "Progreso"]);
     this.horizontalBarData.unshift(["Nombre", "Avance"]);
-
-    console.log(this.verticalBarData);
-    console.log(this.pieChartData);
-    console.log(this.horizontalBarData);
   },
 };
 </script>

@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import axios from "axios";
+import { headers } from "../config/headers.ts";
 export default {
   data() {
     return {
@@ -45,18 +47,21 @@ export default {
       ],
     };
   },
-  mounted() {
-    fetch("http://charlyffs.mywire.org:8001/dashboard", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;",
-        "Access-Control-Allow-Origin": "*",
-        },
-      })
-      .then(response => response.json())
-      .then(data => {
-        this.items = data
-      });
+  async mounted() {
+    let response = await axios.get(
+      "https://localhost:5001/api/data/dashboard",
+      {
+        method: "POST",
+        headers: headers,
+        dataType: "json",
+      }
+    );
+
+    console.log("Server response: ", response.data);
+
+    let data = await response.json();
+
+    this.items = data;
   },
 };
 </script>
