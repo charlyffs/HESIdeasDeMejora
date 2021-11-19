@@ -124,14 +124,16 @@
 </template>
 
 <script>
+
+import axios from "axios";
+import { headers } from "../config/headers.ts"
+
 export default {
   data() {
     return {
       loader: null,
       loading: false,
-
       valid: false,
-
       emisor: "",
       depto: "",
       areaPropone: "",
@@ -159,44 +161,25 @@ export default {
     validate() {
       this.$refs.form.validate();
     },
-    send() {
-
+    async send() {
       var data = {
         idEmpleado: this.emisor,
-        titulo: this.titulo,
-        areaOportunidad: this.areaOportunidad,
-        oportunidad: this.oportunidad,
-        propuesta: this.propuesta,
-        imgAntes: "string", //url a cdn de imágenes
+        idReporte: this.depto,
+        fechaLimite: this.areaPropone,
+        fechaRealizado: this.supervisorPropone,
+        archivoEvidencia: null,
+        descripcion: this.gerentePropone,
       };
-
-      fetch("http://charlyffs.mywire.org:8001/dashboard/", {
-      method: "POST",
-      body: data,
-      headers: {
-        "Content-Type": "application/json;",
-        "Access-Control-Allow-Origin": "*",
-        },
+      console.log(JSON.stringify(data));
+      const values = JSON.stringify(data);
+      
+      const response = await axios.post("https://localhost:5001/api/data/addMejora", { 
+        method: "POST",
+        headers: headers,
+        dataType: "json",
+        body: values
       })
-        .then((response) => response.json())
-        .then((data) => console.log("data: ", data));
-      // fetch("http://charlyffs.mywire.org:8001/dashboard", {
-      // method: "GET",
-
-      // headers: {
-      //   "Content-Type": "application/json;",
-      //   "Access-Control-Allow-Origin": "*",
-      //   },
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => console.log("data: ", data));
-
-      this.clearForm();
-      this.dialog = false;
-    },
-    cancel() {
-      this.clearForm();
-      this.dialog = false;
+      console.log("Server response: ",response.data);
     },
     clearForm() {
       this.emisor = "";
