@@ -48,7 +48,7 @@ export default {
     };
   },
   async mounted() {
-    const response = await axios.get("https://localhost:5001/api/data/awards", { 
+    const response = await axios.get("https://localhost:5001/api/data/dashboard", { 
         method: "GET",
         headers: headers,
       })

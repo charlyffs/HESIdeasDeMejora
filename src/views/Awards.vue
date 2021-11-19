@@ -33,6 +33,7 @@
 import ProjectCard from "@/components/ProjectCard.vue";
 import axios from "axios";
 import { headers } from "../config/headers.ts";
+
 export default {
   components: { ProjectCard },
   data() {
@@ -72,7 +73,7 @@ export default {
   },
   async mounted() {
     let response = await axios.get(
-      "https://localhost:5001/api/data/awardsTopThree",
+      "https://localhost:5001/api/data/awards/topThree",
       {
         method: "GET",
         headers: headers,
@@ -82,7 +83,7 @@ export default {
 
     console.log("Server response: ", response.data);
 
-    let data = await response.json();
+    let data = response.data;
 
     this.firstPlace = data[0];
     this.secondPlace = data[1];
@@ -91,15 +92,15 @@ export default {
     this.secondPlace.place = 2;
     this.thirdPlace.place = 3;
 
-    response = await axios.get("https://localhost:5001/api/data/awardsTable", {
+    response = await axios.get("https://localhost:5001/api/data/awards/table", {
       method: "POST",
       headers: headers,
       dataType: "json",
     });
 
-    data = await response.json();
+    //data = await response.json();
 
-    this.tableData = data;
+    this.tableData = response.data;
   },
 };
 </script>

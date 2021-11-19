@@ -194,6 +194,10 @@ export default {
       this.oportunidad = "";
       this.propuesta = "";
     },
+    cancel() {
+        this.clearForm();
+        this.dialog = false;
+    },
   },
 
   watch: {
