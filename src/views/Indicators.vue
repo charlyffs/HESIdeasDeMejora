@@ -54,7 +54,7 @@ export default {
     let response = await axios.get(
       "https://localhost:5001/api/data/indicators",
       {
-        method: "POST",
+        method: "GET",
         headers: headers,
         dataType: "json",
       }

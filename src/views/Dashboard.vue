@@ -51,7 +51,7 @@ export default {
     let response = await axios.get(
       "https://localhost:5001/api/data/dashboard",
       {
-        method: "POST",
+        method: "GET",
         headers: headers,
         dataType: "json",
       }
