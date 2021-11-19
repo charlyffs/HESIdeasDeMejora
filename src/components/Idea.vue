@@ -145,7 +145,6 @@ export default {
       titulo: "",
       oportunidad: "",
       propuesta: "",
-
       dialog: false,
     };
   },
