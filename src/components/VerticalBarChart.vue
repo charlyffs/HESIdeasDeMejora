@@ -31,8 +31,8 @@ export default {
       if (!this.chartsLib) return null;
       return this.chartsLib.charts.Bar.convertOptions({
         chart: {
-          title: "Company Performance",
-          subtitle: "Sales, Expenses, and Profit: 2014-2017",
+          title: "Ideas de Mejora",
+          subtitle: "Por mes",
         },
         bars: "vertical", // Required for Material Bar Charts.
         hAxis: { format: "decimal" },
