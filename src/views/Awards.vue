@@ -64,7 +64,6 @@ export default {
       },
       thirdPlace: {
         place: "3",
-        title: "test",
         author: "author",
         description: "description",
       },
@@ -72,7 +71,7 @@ export default {
   },
   async mounted() {
     let response = await axios.get(
-      "https://localhost:5001/api/data/awardsTopThree",
+      "https://localhost:5001/api/data/awards/topThree",
       {
         method: "GET",
         headers: headers,
@@ -91,7 +90,7 @@ export default {
     this.secondPlace.place = 2;
     this.thirdPlace.place = 3;
 
-    response = await axios.get("https://localhost:5001/api/data/awardsTable", {
+    response = await axios.get("https://localhost:5001/api/data/awards/Table", {
       method: "POST",
       headers: headers,
       dataType: "json",
