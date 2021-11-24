@@ -34,25 +34,35 @@ export default {
   },
   data() {
     return {
+      propuestas: null,
+      porProponer: null,
       verticalBarData: [
-        //mes y total de ideas
-        ["ENE", 2],
-        ["ENE", 2],
-      ],
+        ["ENE",2],
+        ["FEB",5],
+        ["MAR",8],
+        ["ABR",6],
+        ["MAY",8],
+        ["JUN",9],
+        ["JUL",4],
+        ["AGO",5],
+        ["SEP",7],
+        ["OCT",8],
+        ["NOV",5],
+        ["DIC",3]
+      ]
+      ,
       pieChartData: [
-        ["Propuestas", 25],
-        ["Por proponer", 25],
+        ["Propuestas", 0],
+        ["Por proponer", this.porProponer],
       ],
       horizontalBarData: [
         //Nombre de empleado y num de ideas
-        ["JOHN DOE", 10],
-        ["JOHN DOE", 10],
       ],
     };
   },
   async mounted() {
     let response = await axios.get(
-      "https://localhost:5001/api/data/indicators",
+      "https://localhost:5001/api/data/getEmpleados",
       {
         method: "GET",
         headers: headers,
@@ -60,41 +70,83 @@ export default {
       }
     );
 
-    console.log("Server response: ", response.data);
+    let data = await response.data;
+    const empleados = () => {
+      const empleadosList = [];
+      let x;
+      for(x in data){
+        empleadosList.push([data[x].idEmpleado, data[x].contadorIdeas]);
+      }
+      return empleadosList;
+    }
 
-    let data = await response.json();
+    this.horizontalBarData = empleados();
 
-    this.horizontalBarData = data;
 
-    response = await axios.get("https://localhost:5001/api/data/indicators", {
-      method: "POST",
+    response = await axios.get("https://localhost:5001/api/data/getIdeasDeMejora", {
+      method: "GET",
       headers: headers,
       dataType: "json",
     });
 
-    console.log("Server response: ", response.data);
+    data = await response.data;
+    console.log(data);
+    // let monthData = [
+    // ["ENE",0],
+    // ["FEB",0],
+    // ["MAR",0],
+    // ["ABR",0],
+    // ["MAY",0],
+    // ["JUN",0],
+    // ["JUL",0],
+    // ["AGO",0],
+    // ["SEP",0],
+    // ["OCT",0],
+    // ["NOV",0],
+    // ["DIC",0]
+    // ]
+    //let monthMap = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+    
+    //, "ENE"
+    //, "FEB"
+    //, "MAR"
+    //, "ABR"
+    //, "MAY"
+    //, "JUN"
+    //, "JUL"
+    //, "AGO"
+    //, "SEP"
+    //, "OCT"
+    //, "NOV"
+    //, "DIC"
+    // console.log("monthData: ",monthData);
+    // const fillVerticalChart = () => {
+    //   let x;
+    //   let month;
+    //   let index;
+    //   for(x in data){
+    //     month = data[x].fechaElaboracion.split("-");
+    //     index = monthMap.indexOf(month)
+    //     monthData[index][1] = monthData[index][1]+1
+    //   }
+    // }
+    //fillVerticalChart();
+    //console.log("Datos del mes: ",monthData);
 
-    data = await response.json();
-
-    this.verticalBarData = data;
-
-    response = await axios.get("https://localhost:5001/api/data/indicators", {
-      method: "POST",
-      headers: headers,
-      dataType: "json",
-    });
-
-    console.log("Server response: ", response.data);
-
-    data = await response.json();
-
-    this.pieChartData = data;
+    //this.verticalBarData = monthData;
+    this.propuestas = data.length;
+    this.porProponer = 5;
+    this.pieChartData = [
+        ["Propuestas", this.propuestas],
+        ["Por proponer", this.porProponer],
+    ]
 
     this.verticalBarData.unshift(["Mes", "Ideas"]);
     this.pieChartData.unshift(["Tipo", "Progreso"]);
     this.horizontalBarData.unshift(["Nombre", "Avance"]);
   },
 };
+
 </script>
 
 <style></style>
