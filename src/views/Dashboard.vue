@@ -48,21 +48,13 @@ export default {
     };
   },
   async mounted() {
-    let response = await axios.get(
-      "https://localhost:5001/api/data/dashboard",
-      {
+    const response = await axios.get("https://localhost:5001/api/data/dashboard", { 
         method: "GET",
         headers: headers,
-        dataType: "json",
-      }
-    );
-
-    console.log("Server response: ", response.data);
-
-    let data = await response.json();
-
-    this.items = data;
-  },
+      })
+    console.log("Server response: ",response.data);
+    this.items = response.data;
+    },
 };
 </script>
 

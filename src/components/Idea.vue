@@ -144,7 +144,6 @@ export default {
       titulo: "",
       oportunidad: "",
       propuesta: "",
-
       dialog: false,
     };
   },
@@ -200,6 +199,10 @@ export default {
       this.titulo = "";
       this.oportunidad = "";
       this.propuesta = "";
+    },
+    cancel() {
+        this.clearForm();
+        this.dialog = false;
     },
   },
 
