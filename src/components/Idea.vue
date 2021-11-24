@@ -124,9 +124,8 @@
 </template>
 
 <script>
-
 import axios from "axios";
-import { headers } from "../config/headers.ts"
+import { headers } from "../config/headers.ts";
 
 export default {
   data() {
@@ -158,6 +157,10 @@ export default {
         this.send();
       }
     },
+    cancel() {
+      this.clearForm();
+      this.dialog = false;
+    },
     validate() {
       this.$refs.form.validate();
     },
@@ -172,15 +175,18 @@ export default {
       };
       console.log(JSON.stringify(data));
       const values = JSON.stringify(data);
-      
-      const response = await axios.post("https://localhost:5001/api/data/addMejora", { 
-        method: "POST",
-        headers: headers,
-        dataType: "json",
-        body: values
-      })
 
-      console.log("Server response: ",response.data);
+      const response = await axios.post(
+        "https://localhost:5001/api/data/addMejora",
+        {
+          method: "POST",
+          headers: headers,
+          dataType: "json",
+          body: values,
+        }
+      );
+
+      console.log("Server response: ", response.data);
     },
     clearForm() {
       this.emisor = "";
