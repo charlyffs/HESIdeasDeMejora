@@ -25,6 +25,10 @@ const routes = [
     path: "/instruccion",
     component: () => import("../views/Prototyping.vue"),
   },
+  {
+    path: "/reporte/:id",
+    component: () => import("../views/Prototyping.vue"),
+  },
 ];
 
 const router = new VueRouter({
