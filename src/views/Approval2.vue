@@ -38,7 +38,7 @@
         |
         <v-dialog v-model="dialogPropuestaFactible" width="500">       
             <template v-slot:activator="{ on, attrs }">
-                <v-btn x-small plain v-bind="attrs" v-on="on">
+                <v-btn x-small plain v-bind="attrs" v-on="on" class="propuestaFactibleBtn">
                     Propuesta factible
                 </v-btn>
             </template>
@@ -58,7 +58,7 @@
                                     </v-btn>
                                 </v-col>
                                 <v-col>
-                                    <v-btn block color="blue" class="white--text">
+                                    <v-btn block color="blue" class="white--text" @click="toGreen()">
                                         ACEPTAR
                                     </v-btn>
                                 </v-col>
@@ -208,7 +208,7 @@
                     <v-btn block color="blue" class="ma-2 white--text">Guardar</v-btn>
                 </v-col>
                 <v-col>
-                    <v-btn block color="blue" class="ma-2 white--text">Finalizar</v-btn>
+                    <v-btn block color="blue" class="ma-2 white--text" to="/assignment">Finalizar</v-btn>
                 </v-col>
             </v-row>
         </template>
@@ -222,6 +222,11 @@ export default {
       dialogPropuestaFactible: false,
       noFactJustificacionItems: ['No es viable por riesgo de seguridad', 'No es viable, incumple especificaciones de proceso', 'No es viable, riesgo de calidad', 'No es viable, falta de tecnología'],
     }),
+    methods: {
+        toGreen(){
+
+        }
+    }
   }
 </script>
 

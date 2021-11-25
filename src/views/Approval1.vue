@@ -218,7 +218,7 @@
                     <v-btn block color="blue" class="ma-2 white--text">Guardar</v-btn>
                 </v-col>
                 <v-col>
-                    <v-btn block color="blue" class="ma-2 white--text">Finalizar</v-btn>
+                    <v-btn block color="blue" class="ma-2 white--text" to="approval2">Finalizar</v-btn>
                 </v-col>
             </v-row>
         </template>

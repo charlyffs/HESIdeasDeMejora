@@ -22,9 +22,29 @@ const routes = [
     component: () => import("../views/Dashboard.vue"),
   },
   {
-    path: "/instruccion",
-    component: () => import("../views/Prototyping.vue"),
+    path: "/approval1",
+    component: () => import("../views/Approval1.vue")
   },
+  {
+    path: "/approval2",
+    component: () => import("../views/Approval2.vue")
+  },
+  {
+    path: "/assignment",
+    component: () => import("../views/Assignment.vue")
+  },
+  {
+    path: "/tasks",
+    component: () => import("../views/Tasks.vue")
+  },
+  {
+    path: "/validation",
+    component: () => import("../views/Validation.vue")
+  },
+  // {
+  //   path: "/instruccion",
+  //   component: () => import("../views/Prototyping.vue"),
+  // },
 ];
 
 const router = new VueRouter({

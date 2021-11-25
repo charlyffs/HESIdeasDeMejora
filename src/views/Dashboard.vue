@@ -8,6 +8,7 @@
       pagination.sync="pagination"
       item-key="id"
       loading="true"
+      @click:row="navigate"
     >
     </v-data-table>
   </div>
@@ -54,7 +55,13 @@ export default {
       })
     console.log("Server response: ",response.data);
     this.items = response.data;
-    },
+  },
+  methods: {
+    navigate(){
+      console.log("clicked row");
+      this.$router.push("approval1");
+    }
+  }
 };
 </script>
 
