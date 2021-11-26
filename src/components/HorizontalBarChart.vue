@@ -27,17 +27,25 @@ export default {
   },
   computed: {
     chartOptions() {
-      if (!this.chartsLib) return null;
-      return this.chartsLib.charts.Bar.convertOptions({
+      return {
         chart: {
           title: "Cumplimiento de meta anual",
+          subtitle: "Por empleado",
         },
         bars: "horizontal", // Required for Material Bar Charts.
         hAxis: { format: "decimal" },
         height: 300,
-        
         colors: ["#435898"],
-      });
+        legend: { position: "none" },
+        axes: {
+          x: {
+            0: { label: "Número de ideas" },
+          },
+          y: {
+            0: { label: "Empleado" },
+          },
+        },
+      };
     },
   },
   methods: {
