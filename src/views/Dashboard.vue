@@ -8,7 +8,7 @@
       pagination.sync="pagination"
       item-key="id"
       loading="true"
-      @click:row="navigate"
+      @click:row="loadReport"
     >
     </v-data-table>
   </div>
@@ -36,33 +36,47 @@ export default {
       ],
       items: [
         {
-          numProp: "lorem ipsum",
-          mes: "lorem ipsum",
-          fecha: "lorem ipsum",
-          areaPropone: "lorem ipsum",
-          titulo: "lorem ipsum",
-          areaMejora: "lorem ipsum",
-          tipoMejora: "lorem ipsum",
-          gerente: "lorem ipsum",
+          numProp: "1",
+          mes: "text",
+          fecha: "text",
+          areaPropone: "text",
+          titulo: "text",
+          areaMejora: "text",
+          tipoMejora: "text",
+          gerente: "text",
+        },
+        {
+          numProp: "2",
+          mes: "text",
+          fecha: "text",
+          areaPropone: "text",
+          titulo: "text",
+          areaMejora: "text",
+          tipoMejora: "text",
+          gerente: "text",
         },
       ],
     };
   },
+  methods: {
+    loadReport(row) {
+      this.$router.push("/approval1/" + row.numProp);
+    },
+  },
   async mounted() {
-    const response = await axios.get("https://localhost:5001/api/data/dashboard", { 
+    const response = await axios.get(
+      "https://localhost:5001/api/data/dashboard",
+      {
         method: "GET",
         headers: headers,
-      })
-    console.log("Server response: ",response.data);
+      }
+    );
+    console.log("Server response: ", response.data);
     this.items = response.data;
   },
-  methods: {
-    navigate(){
-      console.log("clicked row");
-      this.$router.push("approval1");
-    }
-  }
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

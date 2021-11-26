@@ -22,7 +22,7 @@ const routes = [
     component: () => import("../views/Dashboard.vue"),
   },
   {
-    path: "/approval1",
+    path: "/approval1/:idReporte",
     component: () => import("../views/Approval1.vue")
   },
   {
@@ -45,6 +45,10 @@ const routes = [
   //   path: "/instruccion",
   //   component: () => import("../views/Prototyping.vue"),
   // },
+  {
+    path: "/reporte/:id",
+    component: () => import("../views/Prototyping.vue"),
+  },
 ];
 
 const router = new VueRouter({

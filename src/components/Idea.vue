@@ -162,22 +162,20 @@ export default {
     },
     async send() {
       var data = {
-        idEmpleado: this.emisor,
-        idReporte: this.depto,
-        fechaLimite: this.areaPropone,
-        fechaRealizado: this.supervisorPropone,
-        archivoEvidencia: null,
-        descripcion: this.gerentePropone,
+        idReporte: this.emisor,
+        titulo: this.titulo,
+        oportunidad: this.oportunidad,
+        propuesta: this.propuesta
       };
       console.log(JSON.stringify(data));
       const values = JSON.stringify(data);
       
-      const response = await axios.post("https://localhost:5001/api/data/addMejora", { 
+      const response = await axios.post("https://localhost:5001/api/data/addReporteIdea", { 
         method: "POST",
         headers: headers,
         dataType: "json",
         body: values
-      })
+      });
 
       console.log("Server response: ",response.data);
     },
@@ -193,10 +191,6 @@ export default {
       this.titulo = "";
       this.oportunidad = "";
       this.propuesta = "";
-    },
-    cancel() {
-        this.clearForm();
-        this.dialog = false;
     },
   },
 
