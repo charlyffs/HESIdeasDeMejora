@@ -28,8 +28,7 @@ export default {
   },
   computed: {
     chartOptions() {
-      if (!this.chartsLib) return null;
-      return this.chartsLib.charts.Bar.convertOptions({
+      return {
         chart: {
           title: "Ideas de Mejora",
           subtitle: "Por mes",
@@ -38,7 +37,13 @@ export default {
         hAxis: { format: "decimal" },
         height: 300,
         colors: ["#435898"],
-      });
+        legend: { position: "none" },
+        axes: {
+          y: {
+            0: {label: 'Número de ideas'}
+          }
+        }
+      }
     },
   },
   methods: {
