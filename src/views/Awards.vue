@@ -13,19 +13,18 @@
         <ProjectCard :items="thirdPlace" />
       </v-row>
     </v-container>
-    <div style="height: 40px"></div>
-    <h4>PARTICIPACION</h4>
-    <div style="height: 20px"></div>
-    <v-data-table
-      style="margin: 0 2rem"
-      :headers="tableHeaders"
-      :items="tableData"
-      class="elevation-1"
-      pagination.sync="pagination"
-      item-key="id"
-      loading="true"
-    >
-    </v-data-table>
+    <div style="height: 50px"></div>
+    <v-card style="margin: 0 2rem">
+      <v-card-title> Mejores Reportes de Idea </v-card-title>
+      <v-data-table
+        :headers="tableHeaders"
+        :items="tableData"
+        pagination.sync="pagination"
+        item-key="id"
+        loading="true"
+      >
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 
