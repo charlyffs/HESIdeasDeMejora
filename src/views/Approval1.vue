@@ -103,7 +103,7 @@
                 <v-card-actions>
                         <v-row>
                             <v-col>
-                                <v-btn block color="blue" class="ma-2 white--text" @click="dialogAprobacion = false">
+                                <v-btn block color="blue" class="ma-2 white--text" @click="cancelar">
                                     CANCELAR
                                 </v-btn>
                             </v-col>
@@ -219,7 +219,7 @@
                     <v-btn block color="blue" class="ma-2 white--text">Guardar</v-btn>
                 </v-col>
                 <v-col>
-                    <v-btn block color="blue" class="ma-2 white--text" to="approval2">Finalizar</v-btn>
+                    <v-btn block color="blue" class="ma-2 white--text" @click="finalizar">Finalizar</v-btn>
                 </v-col>
             </v-row>
         </template>
@@ -228,7 +228,7 @@
 
 <script>
 import axios from 'axios';
-import {headers} from "../config/headers.ts"
+import {headers} from "../config/headers.ts";
     export default {
     data: () => ({
         dialogAprobacion: false,
@@ -270,13 +270,30 @@ import {headers} from "../config/headers.ts"
     },
     methods:
     {
-        aceptar()
+        finalizar(){
+            this.$router.push("/dashboard");
+        },
+        async aceptar()
         {
-            // método post
-            // se necesita: 
+            var data = {
+                idTipoMejora: this.$route.params.idReporte,
+                descripcion: this.tipoMejora,
+            };
+            console.log(JSON.stringify(data));
+            const values = JSON.stringify(data);
+            
+            const response = await axios.post("https://localhost:5001/api/data/addTipoMejora", { 
+                method: "POST",
+                headers: headers,
+                dataType: "json",
+                body: values
+            });
+            console.log(response);
+            this.$router.push("/approval2/" + this.$route.params.idReporte);
         },
         cancelar()
         {
+            console.log(this.tipoMejora);
             this.dialogAprobacion = false;
         }
     }

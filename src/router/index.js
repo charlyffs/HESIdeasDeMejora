@@ -26,7 +26,7 @@ const routes = [
     component: () => import("../views/Approval1.vue")
   },
   {
-    path: "/approval2",
+    path: "/approval2/:idReporte",
     component: () => import("../views/Approval2.vue")
   },
   {

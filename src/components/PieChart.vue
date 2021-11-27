@@ -13,29 +13,21 @@
 <script>
 import { GChart } from "vue-google-charts";
 export default {
-  name: "App",
   components: {
     GChart,
   },
   props: {
     inputData: Array,
   },
-  data() {
-    return {
-      chartsLib: null,
-    };
-  },
   computed: {
     chartOptions() {
-      if (!this.chartsLib) return null;
-      return this.chartsLib.charts.Bar.convertOptions({
-        chart: {
-          title: "Avance de cumplimiento",
-        },
+      return {
+        title: "Avance global de meta anual",
         height: 300,
         colors: ["#435898", "#8293ee"],
         pieHole: 0.5,
-      });
+        legend: "none",
+      };
     },
   },
   methods: {

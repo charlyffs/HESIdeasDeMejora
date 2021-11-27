@@ -129,19 +129,20 @@
         </v-row>    
         <v-row>
             <v-col>
-                <v-text v-model="numPropuesta">21-001</v-text>
+                <v-text-field v-model="numPropuesta" value="" readonly>
+                </v-text-field>
             </v-col>
             <v-col>
-                <v-text v-model="nombreEmisor">JESÚS CARRILLO</v-text> 
+                <v-text-field v-model="nombreEmisor" readonly>JESÚS CARRILLO</v-text-field> 
             </v-col>
             <v-col>
-                <v-text v-model="nombreDepto">HES</v-text>
+                <v-text-field v-model="nombreDepto" readonly>HES</v-text-field>
             </v-col>
             <v-col>
-                <v-text v-model="areaPropone">HES</v-text>
+                <v-text-field v-model="areaPropone" readonly>HES</v-text-field>
             </v-col>
             <v-col>
-                <v-text v-model="fecha">04/08/2021</v-text>
+                <v-text-field v-model="fecha" readonly>04/08/2021</v-text-field>
             </v-col>
         </v-row>
         <v-row>
@@ -160,16 +161,16 @@
         </v-row>
         <v-row>
             <v-col>
-                <v-text v-model="nombreGnte">JESÚS CARRILLO</v-text>
+                <v-text-field v-model="nombreGnte" readonly>JESÚS CARRILLO</v-text-field>
             </v-col>
             <v-col>
-                <v-text v-model="areaMejora">Almacén</v-text>
+                <v-text-field v-model="areaMejora" readonly>Almacén</v-text-field>
             </v-col>
             <v-col>
-                <v-text v-model="nombreSupervisor">AARON MANRIQUEZ</v-text>
+                <v-text-field v-model="nombreSupervisor" readonly>AARON MANRIQUEZ</v-text-field>
             </v-col>
             <v-col>
-                <v-text v-model="tipoMejora">Movimientos</v-text>
+                <v-text-field v-model="tipoMejora" readonly>Movimientos</v-text-field>
             </v-col>
         </v-row>
         </div>
@@ -201,14 +202,14 @@
                 <v-textarea v-model="propuestaMejora" value="" readonly solo auto-grow></v-textarea>
             </v-col>
         </v-row>
-    </div>
+        </div>
         <template>
             <v-row>
                 <v-col>
                     <v-btn block color="blue" class="ma-2 white--text">Guardar</v-btn>
                 </v-col>
                 <v-col>
-                    <v-btn block color="blue" class="ma-2 white--text" to="/assignment">Finalizar</v-btn>
+                    <v-btn block color="blue" class="ma-2 white--text">Finalizar</v-btn>
                 </v-col>
             </v-row>
         </template>
@@ -216,17 +217,56 @@
 </template>
 
 <script>
+import axios from 'axios';
+import {headers} from "../config/headers.ts";
 export default {
     data: () => ({
+    dialogAprobacion: false,
+    dialogCerrar: false,
+    tipoMejoraItems: ['Movimientos', 'Inventario', 'Proceso / Organización', 'Sobreproducción', 'Tiempo', 'Calidad: Defectos/Retrabajos', 'Esperas', 'Costos / Ahorros', 'Medio ambiente / Energía'],
+    rechazoJustificacionItems: ['Existe un proyecto relacionado con la mejora', 'No es viable por inversión', 'No es idea, es corrección', 'No es idea, es necesidad'],
+    primeraAprobacion: "aprobar",
+    propuestaMejora: "",
+    opMejora: "",
+    imgAntes: "",
+    nombreDepto: "",
+    tituloPropuesta: "",
+    tipoMejora: "",
+    nombreSupervisor: "",
+    areaMejora: "",
+    nombreGnte: "",
+    fecha: "",
+    areaPropone: "",
+    nombreEmisor: "",
+    numPropuesta: "",
+    rechazoComentarios: "",
+    rechazoJustificacion: null,
+    aprobar: null,
+    rechazar: null,
       dialogPropuestaNoFactible: false,
       dialogPropuestaFactible: false,
       noFactJustificacionItems: ['No es viable por riesgo de seguridad', 'No es viable, incumple especificaciones de proceso', 'No es viable, riesgo de calidad', 'No es viable, falta de tecnología'],
     }),
-    methods: {
-        toGreen(){
+    async mounted(){
+        const idReporte = this.$route.params.idReporte;
+        const response = await axios.get(`https://localhost:5001/api/data/getReporteIdea/${idReporte}`, { 
+        method: "GET",
+        headers: headers
+        });
+        const data = response.data[0];
+        console.log(data);
+        this.numPropuesta = data.idReporte;
+        this.tituloPropuesta = data.titulo;
+        this.opMejora = data.oportunidad;
+        this.propuestaMejora = data.propuesta;
 
-        }
-    }
+        const tipoMejora = await axios.get(`https://localhost:5001/api/data/getTipoMejora/${idReporte}`, { 
+        method: "GET",
+        headers: headers
+        });
+        this.tipoMejora = tipoMejora.data[0].descripcion;
+
+    },
   }
 </script>
 
