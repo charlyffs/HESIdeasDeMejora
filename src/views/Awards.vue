@@ -65,6 +65,7 @@ export default {
       },
       thirdPlace: {
         place: "3",
+        title: "test",
         author: "author",
         description: "description",
       },
