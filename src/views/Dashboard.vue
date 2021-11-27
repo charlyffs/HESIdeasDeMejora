@@ -1,16 +1,28 @@
 <template>
   <div>
-    <v-data-table
-      style="margin: 2rem"
-      :headers="headers"
-      :items="items"
-      class="elevation-1"
-      pagination.sync="pagination"
-      item-key="id"
-      loading="true"
-      @click:row="loadReport"
-    >
-    </v-data-table>
+    <v-card style="margin: 2rem">
+      <v-card-title>
+        Reportes de Idea de Mejora
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :search="search"
+        pagination.sync="pagination"
+        item-key="id"
+        loading="true"
+        @click:row="loadReport"
+      >
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 
@@ -20,6 +32,7 @@ import { headers } from "../config/headers.ts";
 export default {
   data() {
     return {
+      search: "",
       headers: [
         {
           text: "# Propuesta",
@@ -77,6 +90,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
