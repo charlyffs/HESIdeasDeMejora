@@ -162,7 +162,6 @@ export default {
     },
     async send() {
       var data = {
-        idReporte: this.emisor,
         titulo: this.titulo,
         oportunidad: this.oportunidad,
         propuesta: this.propuesta

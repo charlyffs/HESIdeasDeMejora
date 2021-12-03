@@ -33,27 +33,20 @@ export default {
         { text: "Área de mejora", value: "areaMejora" },
         { text: "Tipo de mejora", value: "tipoMejora" },
         { text: "Gerente", value: "gerente" },
+        { text: "# Aprobación", value: "aprobacion" },
+        { text: "Estatus", value: "estatus" },
       ],
       items: [
         {
-          numProp: "1",
-          mes: "text",
-          fecha: "text",
-          areaPropone: "text",
-          titulo: "text",
-          areaMejora: "text",
-          tipoMejora: "text",
-          gerente: "text",
-        },
-        {
-          numProp: "2",
-          mes: "text",
-          fecha: "text",
-          areaPropone: "text",
-          titulo: "text",
-          areaMejora: "text",
-          tipoMejora: "text",
-          gerente: "text",
+          numProp: "No hay datos",
+          mes: "",
+          fecha: "",
+          areaPropone: "",
+          titulo: "",
+          areaMejora: "",
+          tipoMejora: "",
+          gerente: "",
+          estatus: ""
         },
       ],
     };
@@ -72,7 +65,23 @@ export default {
       }
     );
     console.log("Server response: ", response.data);
-    this.items = response.data;
+    if(response.data.length > 0) this.items = response.data;
+
+    // const approval1 = await axios.get(
+    //   "https://localhost:5001/api/data/getAprobacion1",
+    //   {
+    //     method: "GET",
+    //     headers: headers,
+    //   }
+    // );
+    // const approval2 = await axios.get(
+    //   "https://localhost:5001/api/data/getAprobacion2",
+    //   {
+    //     method: "GET",
+    //     headers: headers,
+    //   }
+    // );
+
   },
 };
 </script>

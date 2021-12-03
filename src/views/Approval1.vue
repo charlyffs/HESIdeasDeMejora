@@ -216,10 +216,7 @@
         <template>
             <v-row>
                 <v-col>
-                    <v-btn block color="blue" class="ma-2 white--text">Guardar</v-btn>
-                </v-col>
-                <v-col>
-                    <v-btn block color="blue" class="ma-2 white--text" @click="finalizar">Finalizar</v-btn>
+                    <v-btn block color="blue" class="ma-2 white--text finish-btn" @click="finalizar">Finalizar</v-btn>
                 </v-col>
             </v-row>
         </template>
@@ -316,6 +313,10 @@ h2 {
 }
 .infogeneral p{
     margin: 0 auto;
+}
+.finish-btn {
+    max-width: 5rem;
+    width: 100%;
 }
 </style>
 
