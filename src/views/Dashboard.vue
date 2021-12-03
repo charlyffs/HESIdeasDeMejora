@@ -46,7 +46,7 @@ export default {
         { text: "Área de mejora", value: "areaMejora" },
         { text: "Tipo de mejora", value: "tipoMejora" },
         { text: "Gerente", value: "gerente" },
-        { text: "# Aprobación", value: "aprobacion" },
+        { text: "# Aprobación", value: "noAprobacion" },
         { text: "Estatus", value: "estatus" },
       ],
       items: [
@@ -59,6 +59,7 @@ export default {
           areaMejora: "",
           tipoMejora: "",
           gerente: "",
+          noAprobacion: "",
           estatus: ""
         },
       ],
@@ -66,7 +67,17 @@ export default {
   },
   methods: {
     loadReport(row) {
-      this.$router.push("/approval1/" + row.numProp);
+      const route = this.items[row.numProp-1];
+      let approval = "approval1"
+
+      approval = (route.noAprobacion == "Aprobacion 1" && route.noAprobacion != "N/A") ? "approval2" : approval;
+      let valid = route.estatus;
+
+      if(route.noAprobacion != "Aprobacion 2" && valid != "rechazado") {
+        this.$router.push(`/${approval}/` + row.numProp);
+      }
+
+      console.log("load report: ",route.noAprobacion);
     },
   },
   async mounted() {
@@ -77,24 +88,55 @@ export default {
         headers: headers,
       }
     );
+    let approval1 = await axios.get(
+      `https://localhost:5001/api/data/getAprobacion1`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
+    let approval2 = await axios.get(
+      `https://localhost:5001/api/data/getAprobacion2`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
+
     console.log("Server response: ", response.data);
-    if(response.data.length > 0) this.items = response.data;
+    if(response.data.length > 0) {
+    
+    this.items = response.data;
 
-    // const approval1 = await axios.get(
-    //   "https://localhost:5001/api/data/getAprobacion1",
-    //   {
-    //     method: "GET",
-    //     headers: headers,
-    //   }
-    // );
-    // const approval2 = await axios.get(
-    //   "https://localhost:5001/api/data/getAprobacion2",
-    //   {
-    //     method: "GET",
-    //     headers: headers,
-    //   }
-    // );
+    let x;
+    for(x in this.items){
+      let id = this.items[x].numProp
+      this.items[x].noAprobacion = "N/A"
+      this.items[x].estatus = "N/A"
+      let y;
+      for(y in approval1.data){
+        if(id == approval1.data[y].idReporte){
+          this.items[x].noAprobacion = "Aprobacion 1"
+          this.items[x].estatus = approval1.data[y].aprobado
+        }
+      }
+    }
+    for(x in this.items){
+      let id = this.items[x].numProp
+      let y;
+      for(y in approval2.data){
+        if(id == approval2.data[y].idReporte){
+          this.items[x].noAprobacion = "Aprobacion 2"
+          this.items[x].estatus = approval2.data[y].factible
+        }
+      }
+    }
+      console.log("Approval1: ",approval1.data[0].idReporte);
+      console.log("Approval1: ",approval1.data);
+      console.log("Approval2: ",approval2.data);
 
+      console.log("Items: ",this.items);
+    }
   },
 };
 </script>

@@ -27,7 +27,7 @@
         <p>
         <v-dialog v-model="dialogCerrar" width="500">       
             <template v-slot:activator="{ on, attrs }">
-                <v-btn x-small plain v-bind="attrs" v-on="on">
+                <v-btn x-small plain v-bind="attrs" v-on="on" @click="cerrar()">
                     Cerrar
                 </v-btn>
             </template>
@@ -58,7 +58,7 @@
                                     </v-btn>
                                 </v-col>
                                 <v-col>
-                                    <v-btn block color="blue" class="white--text" @click="toGreen()">
+                                    <v-btn block color="blue" class="white--text" @click="aceptarFactible()">
                                         ACEPTAR
                                     </v-btn>
                                 </v-col>
@@ -83,21 +83,21 @@
                 <div id="aprobarRechazar">
                 <v-card-actions>
                     <v-row>
-                        <v-select class="pa-4" :items="noFactJustificacionItems" label="Justificación"></v-select>
+                        <v-select class="pa-4" v-model="rechazoJustificacion" :items="noFactJustificacionItems" label="Justificación"></v-select>
                     </v-row>
                 </v-card-actions>
                     <v-row>
-                        <v-textarea name="noFactComentarios" class="pa-8" label="Comentarios" value="" solo auto-grow></v-textarea>
+                        <v-textarea name="noFactComentarios" v-model="rechazoComentarios" class="pa-8" label="Comentarios" value="" solo auto-grow></v-textarea>
                     </v-row>
                 <v-card-actions>
                     <v-row>
                         <v-col>
-                            <v-btn block color="blue" class="pa--4 ma--4 white--text" @click="dialogPropuestaNoFactible = false">
+                            <v-btn block color="blue" class="pa--4 ma--4 white--text" @click="cerrar()">
                                 CANCELAR
                             </v-btn>
                         </v-col>
                         <v-col>
-                            <v-btn block color="blue" class="pa--4 ma--4 white--text">
+                            <v-btn block color="blue" class="pa--4 ma--4 white--text" @click="rechazarFactible()">
                                 ACEPTAR
                             </v-btn>
                         </v-col>
@@ -240,12 +240,12 @@ export default {
     nombreEmisor: "",
     numPropuesta: "",
     rechazoComentarios: "",
-    rechazoJustificacion: null,
+    rechazoJustificacion: "",
     aprobar: null,
     rechazar: null,
-      dialogPropuestaNoFactible: false,
-      dialogPropuestaFactible: false,
-      noFactJustificacionItems: ['No es viable por riesgo de seguridad', 'No es viable, incumple especificaciones de proceso', 'No es viable, riesgo de calidad', 'No es viable, falta de tecnología'],
+    dialogPropuestaNoFactible: false,
+    dialogPropuestaFactible: false,
+    noFactJustificacionItems: ['No es viable por riesgo de seguridad', 'No es viable, incumple especificaciones de proceso', 'No es viable, riesgo de calidad', 'No es viable, falta de tecnología'],
     }),
     async mounted(){
         const idReporte = this.$route.params.idReporte;
@@ -265,8 +265,49 @@ export default {
         headers: headers
         });
         this.tipoMejora = tipoMejora.data[0].descripcion;
-
     },
+    methods: {
+    async aceptarFactible(){
+        var data = {
+            idReporte: this.$route.params.idReporte,
+            factible: "factible",
+            idJustificacionNoFact: null,
+            comentariosNoFact: null,
+        };
+        const values = JSON.stringify(data);
+        
+        const response = await axios.post("https://localhost:5001/api/data/approval2", { 
+            method: "POST",
+            headers: headers,
+            dataType: "json",
+            body: values
+        });
+        console.log(response);
+        this.$router.push("/dashboard/");
+    },
+    async rechazarFactible(){
+        var data = {
+            idReporte: this.$route.params.idReporte,
+            factible: "no factible",
+            idJustificacionNoFact: this.noFactJustificacionItems.indexOf(this.rechazoJustificacion)+1,
+            comentariosNoFact: this.rechazoComentarios,
+        };
+        const values = JSON.stringify(data);
+        
+        const response = await axios.post("https://localhost:5001/api/data/approval2", { 
+            method: "POST",
+            headers: headers,
+            dataType: "json",
+            body: values
+        });
+        console.log(response);
+        this.$router.push("/dashboard/");
+    },
+    cerrar(){
+        //console.log(this.rechazoComentarios);
+        this.$router.push("/dashboard/");
+    },
+    }
   }
 </script>
 

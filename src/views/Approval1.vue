@@ -71,12 +71,14 @@
                 <div id="aprobarRechazar">
                 <v-card-actions>
                     <v-radio-group v-model="primeraAprobacion" row class="ma-2">
-                        <v-radio label="Aprobar" value="aprobar"></v-radio>
-                        <v-radio label="Rechazar" value="rechazar"></v-radio>
+                        <input type="radio" label="Aprobar" value="aprobado" v-model="aprobar">
+                        <label for="Aprobar" v-bind:style="{ marginLeft: '0.5rem', marginRight: '0.5rem'  }">Aprobar</label>
+                        <input type="radio" label="Rechazar" value="rechazado" v-model="aprobar">
+                        <label for="Rechazar" v-bind:style="{ marginLeft: '0.5rem', marginRight: '0.5rem' }">Rechazar</label>
                     </v-radio-group>
                 </v-card-actions>
                     
-                    <div v-if="primeraAprobacion == 'aprobar'">
+                    <div v-if="aprobar == 'aprobado'">
                         <v-card-actions>
                             <v-row>
                                 <v-col>
@@ -247,8 +249,8 @@ import {headers} from "../config/headers.ts";
         nombreEmisor: "",
         numPropuesta: "",
         rechazoComentarios: "",
-        rechazoJustificacion: null,
-        aprobar: null,
+        rechazoJustificacion: false,
+        aprobar: "aprobado",
         rechazar: null,
     }),
     async mounted(){
@@ -272,25 +274,33 @@ import {headers} from "../config/headers.ts";
         },
         async aceptar()
         {
+            console.log(this.numPropuesta);
             var data = {
-                idTipoMejora: this.$route.params.idReporte,
-                descripcion: this.tipoMejora,
+                idReporte: this.$route.params.idReporte,
+                aprobado: this.aprobar,
+                idTipoMejora: this.aprobar ? this.tipoMejoraItems.indexOf(this.tipoMejora)+1 : null,
+                idJustificacionRech: this.rechazoJustificacion ? this.tipoMejoraItems.indexOf(this.tipoMejora)+1 : null,
+                comentariosRech: (this.rechazoComentarios !== "") ? this.rechazoComentarios : null,
             };
             console.log(JSON.stringify(data));
             const values = JSON.stringify(data);
             
-            const response = await axios.post("https://localhost:5001/api/data/addTipoMejora", { 
+            const response = await axios.post("https://localhost:5001/api/data/approval1", { 
                 method: "POST",
                 headers: headers,
                 dataType: "json",
                 body: values
             });
             console.log(response);
-            this.$router.push("/approval2/" + this.$route.params.idReporte);
+            this.$router.push("/dashboard/");
         },
         cancelar()
         {
-            console.log(this.tipoMejora);
+            console.log(this.rechazoComentarios !== "");
+            console.log(this.rechazoJustificacion);
+            console.log(this.rechazoJustificacionItems.indexOf(this.rechazoJustificacion)+1);
+            console.log(this.tipoMejoraItems.indexOf(this.tipoMejora)+1);
+            console.log(this.aprobar);
             this.dialogAprobacion = false;
         }
     }
