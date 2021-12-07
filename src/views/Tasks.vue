@@ -29,35 +29,29 @@
     <div class="ma-4 acciones">
       <v-row>
         <template>
-          <v-card class="mx-auto" max-width="400" tile>
-            <v-list-item single-line>
-              <v-list-item-content>
-                <v-list-item-title align="center">Acciones</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item two-line>
-              <v-list-item-content>
-                <!-- La acción y la descripción se obtendrán del cuadro de diálogo que se llena al hacer click en el botón Agregar acción -->
-                <v-list-item-title align="center"
-                  >Acción a realizar</v-list-item-title
-                >
-                <v-list-item-subtitle align="center"
-                  >Descripción</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item two-line>
-              <v-list-item-content>
-                <v-list-item-title align="center"
-                  >Acción a realizar</v-list-item-title
-                >
-                <v-list-item-subtitle align="center"
-                  >Descripción</v-list-item-subtitle
-                >
-              </v-list-item-content>
-            </v-list-item>
+          <v-card width="100%">
+            <v-card-title>
+              Acciones de mejora
+              <v-spacer></v-spacer>
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-card-title>
+            <v-data-table
+              :headers="headers"
+              :items="items"
+              :search="search"
+              pagination.sync="pagination"
+              item-key="id"
+              loading="true"
+              @click:row="loadReport"
+              loading-text="No hay acciones."
+            >
+            </v-data-table>
           </v-card>
         </template>
 
@@ -225,6 +219,16 @@
 <script>
 export default {
   data: () => ({
+    search: "",
+    headers: [
+      {
+        text: "Acción",
+        align: "start",
+        value: "accion",
+      },
+      { text: "Descripción", value: "descripcion" },
+    ],
+    items: [],
     accion: "",
     descripcionAccion: "",
     nomenclaturaEstandar: "",
@@ -246,6 +250,13 @@ export default {
   },
   methods: {
     agregarAccion() {
+      this.items.push({
+        accion: this.accion,
+        descripcion: this.descripcionAccion,
+      });
+      this.dialogAgregarAccion = false;
+      this.accion = "";
+      this.descripcionAccion = "";
       // se guarda la acción a realizar junto con su descripción y se acomoda en la lista de acciones de mejora
     },
     calcularMejoraObtenida() {
