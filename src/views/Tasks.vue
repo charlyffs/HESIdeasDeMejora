@@ -15,7 +15,6 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn color="info">Ver propuesta</v-btn>
         <h2>SISTEMA DE IDEAS DE MEJORA</h2>
         <h3>Acciones de mejora</h3>
       </v-col>

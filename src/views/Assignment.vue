@@ -8,7 +8,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn color="info" @click="verPropuesta()">Ver propuesta</v-btn>
+        
         <h2>SISTEMA DE IDEAS DE MEJORA</h2>
         <h3>Asignar piloto</h3>
       </v-col>
@@ -31,7 +31,7 @@
             <v-btn block color="blue" class="pa-4 white--text" @click="cerrar">CERRAR</v-btn>
         </v-col>
         <v-col>
-            <v-btn block color="blue" class="pa-4 white--text" @click="guardar" to="/">GUARDAR</v-btn>
+            <v-btn block color="blue" class="pa-4 white--text" @click="guardar()" >GUARDAR</v-btn>
         </v-col>
     </v-row>
         
@@ -46,6 +46,11 @@ export default {
     unidadMedidaSelect: ['MIN', 'QTY', '%', 'M/2', '$', 'M', 'PZS'],
     dialog: false,
   }),
+  methods: {
+    guardar(){
+      this.$router.push(`/tasks/`)
+    }
+  }
 }
 </script>
 

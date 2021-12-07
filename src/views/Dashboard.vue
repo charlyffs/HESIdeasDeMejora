@@ -67,17 +67,30 @@ export default {
   },
   methods: {
     loadReport(row) {
-      const route = this.items[row.numProp-1];
+      console.log("items: ",this.items);
+      let id = (row.numProp);
+      const route = this.items[id-1];
       let approval = "approval1"
 
-      approval = (route.noAprobacion == "Aprobacion 1" && route.noAprobacion != "N/A") ? "approval2" : approval;
-      let valid = route.estatus;
+      if(route.noAprobacion == "Aprobacion 1"){
+        approval = "approval2"
+      }
+      if(route.noAprobacion == "Aprobacion 2"){
+        approval = "assignment"
+      }
+      
 
-      if(route.noAprobacion != "Aprobacion 2" && valid != "rechazado") {
-        this.$router.push(`/${approval}/` + row.numProp);
+      let valid = route.estatus;
+      if(valid != "rechazado" && approval != "assignment") {
+        this.$router.push(`/${approval}/` + id);
+      }
+      if(approval == "assignment"){
+        this.$router.push(`/${approval}/`)
       }
 
+  
       console.log("load report: ",route.noAprobacion);
+      console.log("valid: ",valid);
     },
   },
   async mounted() {
