@@ -30,11 +30,11 @@ const routes = [
     component: () => import("../views/Approval2.vue")
   },
   {
-    path: "/assignment",
+    path: "/assignment/:id",
     component: () => import("../views/Assignment.vue")
   },
   {
-    path: "/tasks",
+    path: "/tasks/:id/:a/:b/:c/:d",
     component: () => import("../views/Tasks.vue")
   },
   {
