@@ -60,37 +60,35 @@ export default {
           tipoMejora: "",
           gerente: "",
           noAprobacion: "",
-          estatus: ""
+          estatus: "",
         },
       ],
     };
   },
   methods: {
     loadReport(row) {
-      console.log("items: ",this.items);
-      let id = (row.numProp);
-      const route = this.items[id-1];
-      let approval = "approval1"
+      console.log("items: ", this.items);
+      let id = row.numProp;
+      const route = this.items[id - 1];
+      let approval = "approval1";
 
-      if(route.noAprobacion == "Aprobacion 1"){
-        approval = "approval2"
+      if (route.noAprobacion == "Aprobacion 1") {
+        approval = "approval2";
       }
-      if(route.noAprobacion == "Aprobacion 2"){
-        approval = "assignment"
+      if (route.noAprobacion == "Aprobacion 2") {
+        approval = "assignment";
       }
-      
 
       let valid = route.estatus;
-      if(valid != "rechazado" && approval != "assignment") {
+      if (valid != "rechazado" && approval != "assignment") {
         this.$router.push(`/${approval}/` + id);
       }
-      if(approval == "assignment"){
-        this.$router.push(`/${approval}/`)
+      if (approval == "assignment") {
+        this.$router.push(`/${approval}/` + id);
       }
 
-  
-      console.log("load report: ",route.noAprobacion);
-      console.log("valid: ",valid);
+      console.log("load report: ", route.noAprobacion);
+      console.log("valid: ", valid);
     },
   },
   async mounted() {
@@ -117,38 +115,37 @@ export default {
     );
 
     console.log("Server response: ", response.data);
-    if(response.data.length > 0) {
-    
-    this.items = response.data;
+    if (response.data.length > 0) {
+      this.items = response.data;
 
-    let x;
-    for(x in this.items){
-      let id = this.items[x].numProp
-      this.items[x].noAprobacion = "N/A"
-      this.items[x].estatus = "N/A"
-      let y;
-      for(y in approval1.data){
-        if(id == approval1.data[y].idReporte){
-          this.items[x].noAprobacion = "Aprobacion 1"
-          this.items[x].estatus = approval1.data[y].aprobado
+      let x;
+      for (x in this.items) {
+        let id = this.items[x].numProp;
+        this.items[x].noAprobacion = "N/A";
+        this.items[x].estatus = "N/A";
+        let y;
+        for (y in approval1.data) {
+          if (id == approval1.data[y].idReporte) {
+            this.items[x].noAprobacion = "Aprobacion 1";
+            this.items[x].estatus = approval1.data[y].aprobado;
+          }
         }
       }
-    }
-    for(x in this.items){
-      let id = this.items[x].numProp
-      let y;
-      for(y in approval2.data){
-        if(id == approval2.data[y].idReporte){
-          this.items[x].noAprobacion = "Aprobacion 2"
-          this.items[x].estatus = approval2.data[y].factible
+      for (x in this.items) {
+        let id = this.items[x].numProp;
+        let y;
+        for (y in approval2.data) {
+          if (id == approval2.data[y].idReporte) {
+            this.items[x].noAprobacion = "Aprobacion 2";
+            this.items[x].estatus = approval2.data[y].factible;
+          }
         }
       }
-    }
-      console.log("Approval1: ",approval1.data[0].idReporte);
-      console.log("Approval1: ",approval1.data);
-      console.log("Approval2: ",approval2.data);
+      console.log("Approval1: ", approval1.data[0].idReporte);
+      console.log("Approval1: ", approval1.data);
+      console.log("Approval2: ", approval2.data);
 
-      console.log("Items: ",this.items);
+      console.log("Items: ", this.items);
     }
   },
 };

@@ -20,183 +20,239 @@
       </v-col>
     </v-row>
     <v-row>
-      <div class = "inicio">
+      <div class="inicio">
         <!-- El piloto se va a obtener de la base de datos, se guardó en la pantalla Assignment (Seleccionar Piloto) -->
-         <p>RESPONSABLE: piloto</p>
+        <p>RESPONSABLE: piloto</p>
       </div>
     </v-row>
 
     <div class="ma-4 acciones">
-        <v-row>
-            <template>
-                <v-card class="mx-auto" max-width="400" tile>
-                    <v-list-item single-line>
-                        <v-list-item-content>
-                            <v-list-item-title align="center">Acciones</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
+      <v-row>
+        <template>
+          <v-card class="mx-auto" max-width="400" tile>
+            <v-list-item single-line>
+              <v-list-item-content>
+                <v-list-item-title align="center">Acciones</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
 
-                    <v-list-item two-line>
-                        <v-list-item-content>
-                            <!-- La acción y la descripción se obtendrán del cuadro de diálogo que se llena al hacer click en el botón Agregar acción -->
-                            <v-list-item-title align="center">Acción a realizar</v-list-item-title>
-                            <v-list-item-subtitle align="center">Descripción</v-list-item-subtitle>
-                        </v-list-item-content>
-                    </v-list-item>
+            <v-list-item two-line>
+              <v-list-item-content>
+                <!-- La acción y la descripción se obtendrán del cuadro de diálogo que se llena al hacer click en el botón Agregar acción -->
+                <v-list-item-title align="center"
+                  >Acción a realizar</v-list-item-title
+                >
+                <v-list-item-subtitle align="center"
+                  >Descripción</v-list-item-subtitle
+                >
+              </v-list-item-content>
+            </v-list-item>
 
-                    <v-list-item two-line>
-                        <v-list-item-content>
-                            <v-list-item-title align="center">Acción a realizar</v-list-item-title>
-                            <v-list-item-subtitle align="center">Descripción</v-list-item-subtitle>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-card>
-            </template>
+            <v-list-item two-line>
+              <v-list-item-content>
+                <v-list-item-title align="center"
+                  >Acción a realizar</v-list-item-title
+                >
+                <v-list-item-subtitle align="center"
+                  >Descripción</v-list-item-subtitle
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </template>
 
-            <v-dialog v-model="dialogAgregarAccion" width="500">       
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn block color="blue" class="ma-8 white--text" v-bind="attrs" v-on="on" justify="right">Agregar acción</v-btn>
-                </template>
+        <v-dialog v-model="dialogAgregarAccion" width="500">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              block
+              color="blue"
+              class="ma-8 white--text"
+              v-bind="attrs"
+              v-on="on"
+              justify="right"
+              >Agregar acción</v-btn
+            >
+          </template>
 
-                <v-card>
-                    <v-card-title class="text-h5 grey lighten-2">
-                        Agregar acción
-                    </v-card-title>
+          <v-card>
+            <v-card-title class="text-h5 grey lighten-2">
+              Agregar acción
+            </v-card-title>
 
-                    <v-card-actions>
-                        <v-row>
-                            <v-text-field v-model="accion" class="ma-4" label="Acción a realizar" value=""></v-text-field>
-                        </v-row>
-                    </v-card-actions>
+            <v-card-actions>
+              <v-row>
+                <v-text-field
+                  v-model="accion"
+                  class="ma-4"
+                  label="Acción a realizar"
+                  value=""
+                ></v-text-field>
+              </v-row>
+            </v-card-actions>
 
-                    <v-card-actions>
-                        <v-row>
-                            <v-text-field v-model="descripcionAccion" class="ma-4" label="Descripción" value=""></v-text-field>
-                        </v-row>
-                    </v-card-actions>
+            <v-card-actions>
+              <v-row>
+                <v-text-field
+                  v-model="descripcionAccion"
+                  class="ma-4"
+                  label="Descripción"
+                  value=""
+                ></v-text-field>
+              </v-row>
+            </v-card-actions>
 
-                    <v-card-actions>
-                        <v-row>
-                            <v-col>
-                                <v-btn block color="blue" class="pa-4 white--text" @click="dialogAgregarAccion = false">
-                                    CANCELAR
-                                </v-btn>
-                            </v-col>
-                            <v-col>
-                                <v-btn block color="blue" class="white--text" @click="agregarAccion()">
-                                    ACEPTAR
-                                </v-btn>
-                            </v-col>
-                        </v-row>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </v-row>
+            <v-card-actions>
+              <v-row>
+                <v-col>
+                  <v-btn
+                    block
+                    color="blue"
+                    class="pa-4 white--text"
+                    @click="dialogAgregarAccion = false"
+                  >
+                    CANCELAR
+                  </v-btn>
+                </v-col>
+                <v-col>
+                  <v-btn
+                    block
+                    color="blue"
+                    class="white--text"
+                    @click="agregarAccion()"
+                  >
+                    ACEPTAR
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-row>
     </div>
 
     <v-row>
-        <v-col>
-            <p class="resultados">(Después)</p>
-            <v-file-input v-model="imgDespues" label="Cargar imagen" filled prepend-icon="mdi-camera" class="ma-4"></v-file-input>
-        </v-col>
+      <v-col>
+        <p class="resultados">(Después)</p>
+        <v-file-input
+          v-model="imgDespues"
+          label="Cargar imagen"
+          filled
+          prepend-icon="mdi-camera"
+          class="ma-4"
+        ></v-file-input>
+      </v-col>
     </v-row>
 
     <v-row>
-        <v-col>
-            <p class="resultados">Resultados</p>
-            <v-row>
-                <v-col>
-                    <!-- se obtiene de la base de datos, se guardó a través de la pantalla Assignment -->
-                    <p>Indicador de mejora</p>
-                    <v-text-field v-model="indicadorMejora" solo readonly></v-text-field>
-                </v-col>
+      <v-col>
+        <p class="resultados">Resultados</p>
+        <v-row>
+          <v-col>
+            <!-- se obtiene de la base de datos, se guardó a través de la pantalla Assignment -->
+            <p>Indicador de mejora</p>
+            <v-text-field
+              v-model="indicadorMejora"
+              solo
+              readonly
+            ></v-text-field>
+          </v-col>
 
-                <v-col>
-                    <!-- se obtiene de la base de datos, se guardó a través de la pantalla Assignment -->
-                    <p>Indicador inicial</p>
-                    <v-text-field v-model="indicadorInicial" solo readonly></v-text-field>
-                </v-col>
+          <v-col>
+            <!-- se obtiene de la base de datos, se guardó a través de la pantalla Assignment -->
+            <p>Indicador inicial</p>
+            <v-text-field
+              v-model="indicadorInicial"
+              solo
+              readonly
+            ></v-text-field>
+          </v-col>
 
-                <v-col>
-                    <!-- el usuario lo ingresa -->
-                    <p>Indicador final</p>
-                    <v-text-field v-model="indicadorFinal" solo></v-text-field>
-                </v-col>
+          <v-col>
+            <!-- el usuario lo ingresa -->
+            <p>Indicador final</p>
+            <v-text-field v-model="indicadorFinal" solo></v-text-field>
+          </v-col>
 
-                <v-col>
-                    <!-- se obtiene de la base de datos, se guardó a través de la pantalla Assignment -->
-                    <p>U/M</p>
-                    <v-text-field v-model="unidadMedida" solo readonly></v-text-field>
-                </v-col>
+          <v-col>
+            <!-- se obtiene de la base de datos, se guardó a través de la pantalla Assignment -->
+            <p>U/M</p>
+            <v-text-field v-model="unidadMedida" solo readonly></v-text-field>
+          </v-col>
 
-                <v-col>
-                    <!-- se obtiene con un método -->
-                    <p>Mejora obtenida</p>
-                    <v-text-field v-model="mejoraObtenida" solo readonly></v-text-field>
-                </v-col>
-            </v-row>
-        </v-col>
+          <v-col>
+            <!-- se obtiene con un método -->
+            <p>Mejora obtenida</p>
+            <v-text-field v-model="mejoraObtenida" solo readonly></v-text-field>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
 
     <v-divider class="ma-4"></v-divider>
 
     <v-row>
-        <v-col>
-            <p class="resultados">Estándar actualizado</p>
-            <v-row>
-                <v-col>
-                    <p>Nombre</p>
-                    <v-text-field v-model="nombreEstandar" value="" solo></v-text-field>
-                </v-col>
+      <v-col>
+        <p class="resultados">Estándar actualizado</p>
+        <v-row>
+          <v-col>
+            <p>Nombre</p>
+            <v-text-field v-model="nombreEstandar" value="" solo></v-text-field>
+          </v-col>
 
-                <v-col>
-                    <p>Nomenclatura</p>
-                    <v-text-field v-model="nomenclaturaEstandar" value="" solo></v-text-field>
-                </v-col>
-            </v-row>
-        </v-col>
+          <v-col>
+            <p>Nomenclatura</p>
+            <v-text-field
+              v-model="nomenclaturaEstandar"
+              value=""
+              solo
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
 
     <v-row>
-        <v-col>
-            <v-btn block color="blue" class="pa-4 white--text">GUARDAR</v-btn>
-        </v-col>
-        <v-col>
-            <v-btn block color="blue" class="pa-4 white--text">FINALIZAR</v-btn>
-        </v-col>
+      <v-col>
+        <v-btn block color="blue" class="pa-4 white--text">GUARDAR</v-btn>
+      </v-col>
+      <v-col>
+        <v-btn block color="blue" class="pa-4 white--text">FINALIZAR</v-btn>
+      </v-col>
     </v-row>
-        
   </v-container>
 </template>
 
 <script>
 export default {
-    data: () => ({
-      accion: "",
-      descripcionAccion: "",
-      nomenclaturaEstandar: "",
-      nombreEstandar: "",
-      mejoraObtenida: "",
-      unidadMedida: "",
-      indicadorFinal: "",
-      indicadorInicial: "",
-      indicadorMejora: "",
-      imgDespues: null,
-      dialogAgregarAccion: false,
-    }),
-    methods:
-    {
-       agregarAccion()
-       {
-           // se guarda la acción a realizar junto con su descripción y se acomoda en la lista de acciones de mejora
-       },
-       calcularMejoraObtenida()
-       {
-           // calcular mejora obtenida: Valor Final / Valor Inicial * 1 = %
-           // valor inicial se obtiene de la base de datos y el valor final el usuario lo ingresa
-       }
-    }
-  }
+  data: () => ({
+    accion: "",
+    descripcionAccion: "",
+    nomenclaturaEstandar: "",
+    nombreEstandar: "",
+    mejoraObtenida: "",
+    unidadMedida: "",
+    indicadorFinal: "",
+    indicadorInicial: "",
+    indicadorMejora: "",
+    imgDespues: null,
+    dialogAgregarAccion: false,
+  }),
+  mounted() {
+    this.indicadorMejora = this.$route.params.b;
+    this.indicadorInicial = this.$route.params.c;
+    this.unidadMedida = this.$route.params.d;
+    
+  },
+  methods: {
+    agregarAccion() {
+      // se guarda la acción a realizar junto con su descripción y se acomoda en la lista de acciones de mejora
+    },
+    calcularMejoraObtenida() {
+      // calcular mejora obtenida: Valor Final / Valor Inicial * 1 = %
+      // valor inicial se obtiene de la base de datos y el valor final el usuario lo ingresa
+    },
+  },
+};
 </script>
 
 <style>
@@ -206,13 +262,13 @@ h3 {
 h2 {
   text-align: center;
 }
-.inicio{
-    font-weight: bold;
+.inicio {
+  font-weight: bold;
 }
-.resultados{
-    font-weight: bold;
+.resultados {
+  font-weight: bold;
 }
-.infogeneral p{
-    margin: 0 auto;
+.infogeneral p {
+  margin: 0 auto;
 }
 </style>
