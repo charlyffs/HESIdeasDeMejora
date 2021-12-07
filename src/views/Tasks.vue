@@ -22,7 +22,7 @@
     <v-row>
       <div class="inicio">
         <!-- El piloto se va a obtener de la base de datos, se guardó en la pantalla Assignment (Seleccionar Piloto) -->
-        <p>RESPONSABLE: piloto</p>
+        <p>RESPONSABLE: {{ nombrePiloto }}</p>
       </div>
     </v-row>
 
@@ -234,14 +234,15 @@ export default {
     indicadorFinal: "",
     indicadorInicial: "",
     indicadorMejora: "",
+    nombrePiloto: "",
     imgDespues: null,
     dialogAgregarAccion: false,
   }),
   mounted() {
+    this.nombrePiloto = this.$route.params.a;
     this.indicadorMejora = this.$route.params.b;
     this.indicadorInicial = this.$route.params.c;
     this.unidadMedida = this.$route.params.d;
-    
   },
   methods: {
     agregarAccion() {
